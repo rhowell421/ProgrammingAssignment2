@@ -11,15 +11,16 @@ makeCacheMatrix <- function(x = matrix(rnorm(1:20), 4, 5)) {
     inv <- NULL
     
     set <- function(y) {
-      x <<- y
-      inv <<- NULL
+          x <<- y
+          inv <<- NULL
     }
     
     get <- function() x
     setinv <- function(inverse) inv <<- inverse
+    
     getinv <- function() {
-          inver <- ginv(x)
-          inver %*% x
+          inver_getiv <- ginv(x)
+          inver_getiv %*% x
     }
     
     list(set = set, 
@@ -38,13 +39,13 @@ cacheSolve <- function(x, ...) {
     inv <- x$getinv()
     
     if(!is.null(inv)) {
-        message("getting cached data")
-        return(inv)
+          message("getting cached data")
+          return(inv)
     }
     
     data <- x$get()
     inv <- solve(data, ...)
-    x$setmean(inv)
+    x$setinv(inv)
     inv
 
 }
